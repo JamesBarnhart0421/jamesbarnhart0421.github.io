@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Coach Jay — Take Control of Your Own Health</title>
+<meta name="description" content="Fitness coaching built on lasting lifestyle and behavior change — programs, a macro calculator, and habit coaching that deliver real results you'll actually know how to maintain.">
+<meta property="og:title" content="Coach Jay — Take Control of Your Own Health">
+<meta property="og:description" content="Lifestyle and behavior-change coaching that delivers real results — and the skills to keep them, with a coach in your corner the whole way.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0c0d0f; --surface:#141517; --surface2:#1a1c1f; --line:rgba(255,255,255,.08);
+    --text:#f2f0ec; --muted:#9a9793; --accent:#c9a75c; --accent-ink:#141009; --warm:#8a6a3a;
+    --radius:16px; --maxw:1140px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+    line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  a{color:inherit;text-decoration:none}
+  h1,h2,h3{font-family:'Archivo Black','Inter',sans-serif;font-weight:800;line-height:1.02;letter-spacing:-.5px}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 22px}
+  .accent{color:var(--accent)}
+  .muted{color:var(--muted)}
+  .btn{display:inline-flex;align-items:center;gap:9px;font-weight:700;font-size:15px;padding:14px 24px;border-radius:40px;
+    cursor:pointer;border:1px solid transparent;transition:transform .15s,filter .15s,background .15s;white-space:nowrap}
+  .btn:hover{transform:translateY(-2px)}
+  .btn-primary{background:var(--accent);color:var(--accent-ink)}
+  .btn-primary:hover{filter:brightness(1.06)}
+  .btn-ghost{background:transparent;border-color:var(--line);color:var(--text)}
+  .btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
+  .eyebrow{font-size:12px;letter-spacing:2.5px;text-transform:uppercase;color:var(--accent);font-weight:700}
+  section{padding:96px 0}
+  .center{text-align:center}
+
+  /* NAV */
+  header{position:sticky;top:0;z-index:50;background:rgba(11,13,15,.82);backdrop-filter:blur(14px);
+    -webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:66px}
+  .logo{font-family:'Archivo Black',sans-serif;font-size:16px;letter-spacing:.5px}
+  .logo span{color:var(--accent)}
+  .nav-links{display:flex;align-items:center;gap:28px}
+  .nav-links a{font-size:14px;font-weight:600;color:var(--muted);transition:color .15s}
+  .nav-links a:hover{color:var(--text)}
+  .nav-cta{padding:10px 20px;font-size:14px}
+  .burger{display:none;background:none;border:0;color:var(--text);font-size:24px;cursor:pointer}
+
+  /* HERO */
+  .hero{position:relative;padding:120px 0 90px;overflow:hidden}
+  .hero::before{content:"";position:absolute;inset:0;z-index:-1;
+    background:radial-gradient(70% 60% at 78% 8%,rgba(201,167,92,.16),transparent 60%),
+               radial-gradient(60% 50% at 8% 90%,rgba(138,106,58,.12),transparent 60%)}
+  .hero-photo{position:absolute;top:0;right:0;bottom:0;width:54%;z-index:-2;pointer-events:none;
+    background:url('hero.jpg') top center/cover;opacity:.6;
+    -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 55%);mask-image:linear-gradient(90deg,transparent 0,#000 55%)}
+  .hero-photo::after{content:"";position:absolute;inset:0;
+    background:linear-gradient(180deg,rgba(12,13,15,.35),transparent 30%,rgba(12,13,15,.55))}
+  .hero h1{font-size:clamp(40px,7vw,78px);max-width:14ch}
+  .hero p.sub{font-size:clamp(17px,2.2vw,21px);color:var(--muted);max-width:52ch;margin:24px 0 34px}
+  .hero-cta{display:flex;gap:14px;flex-wrap:wrap}
+  .proof{display:flex;gap:34px;flex-wrap:wrap;margin-top:52px;padding-top:28px;border-top:1px solid var(--line)}
+  .proof .stat b{font-family:'Archivo Black',sans-serif;font-size:26px;display:block}
+  .proof .stat span{font-size:13px;color:var(--muted)}
+
+  /* PROMISE */
+  .promise{background:var(--surface)}
+  .promise .grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+  .promise h2{font-size:clamp(28px,4vw,42px);margin-bottom:18px}
+  .promise p{color:var(--muted);font-size:17px;margin-bottom:14px}
+  .promise .pull{border-left:3px solid var(--accent);padding-left:18px;color:var(--text);font-weight:600;font-size:18px}
+
+  /* STEPS */
+  .steps h2{font-size:clamp(28px,4vw,42px);max-width:20ch;margin:0 auto 14px}
+  .steps-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:52px}
+  .step{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:30px}
+  .step .n{font-family:'Archivo Black',sans-serif;font-size:15px;color:var(--accent-ink);background:var(--accent);
+    width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:18px}
+  .step h3{font-size:19px;margin-bottom:8px}
+  .step p{color:var(--muted);font-size:15px}
+
+  /* PRICING */
+  .pricing{background:linear-gradient(180deg,var(--bg),var(--surface) 60%)}
+  .price-head{max-width:640px;margin:0 auto 20px}
+  .price-head h2{font-size:clamp(28px,4vw,44px);margin-bottom:14px}
+  .tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:44px;align-items:start}
+  .tier{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:32px 28px;position:relative;display:flex;flex-direction:column;height:100%}
+  .tier.featured{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent),0 24px 60px rgba(201,167,92,.1);background:var(--surface2)}
+  .tag{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:var(--accent);color:var(--accent-ink);
+    font-size:11px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;padding:6px 14px;border-radius:20px;white-space:nowrap}
+  .tier h3{font-size:22px;margin-bottom:6px}
+  .tier .blurb{color:var(--muted);font-size:14px;min-height:40px;margin-bottom:18px}
+  .tier .cost{font-family:'Archivo Black',sans-serif;font-size:44px;line-height:1}
+  .tier .cost small{font-size:15px;color:var(--muted);font-family:'Inter';font-weight:600}
+  .tier ul{list-style:none;margin:22px 0 26px;display:flex;flex-direction:column;gap:11px}
+  .tier li{font-size:14.5px;padding-left:26px;position:relative;color:#dfe4e2}
+  .tier li::before{content:"✓";position:absolute;left:0;color:var(--accent);font-weight:800}
+  .tier .btn{width:100%;justify-content:center;margin-top:auto}
+  .guarantee{margin-top:30px;color:var(--muted);font-size:14px}
+
+  /* TOOL */
+  .tool{background:var(--surface)}
+  .tool .grid{display:grid;grid-template-columns:1.1fr 1fr;gap:48px;align-items:center}
+  .tool h2{font-size:clamp(26px,4vw,40px);margin-bottom:16px}
+  .tool p{color:var(--muted);font-size:17px;margin-bottom:24px}
+  .tool-card{background:linear-gradient(160deg,var(--surface2),#0e1113);border:1px solid var(--line);border-radius:20px;
+    padding:40px;text-align:center}
+  .tool-card .big{font-family:'Archivo Black',sans-serif;font-size:52px;color:var(--accent)}
+  .tool-card p{font-size:14px;margin:6px 0 22px}
+
+  /* ABOUT */
+  .about .grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:48px;align-items:center}
+  .about .photo{aspect-ratio:4/5;border-radius:20px;
+    background:linear-gradient(180deg,rgba(12,13,15,0) 55%,rgba(12,13,15,.4)),url('james.jpg?v=2') center/cover;
+    border:1px solid var(--line)}
+  .about h2{font-size:clamp(26px,4vw,40px);margin-bottom:16px}
+  .about p{color:var(--muted);font-size:16px;margin-bottom:14px}
+
+  /* TESTIMONIALS */
+  .testi{background:var(--surface)}
+  .testi h2{font-size:clamp(26px,4vw,40px);text-align:center;margin-bottom:12px}
+  .testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:44px}
+  .quote{background:var(--bg);border:1px solid var(--line);border-radius:16px;padding:26px}
+  .quote p{font-size:15px;margin-bottom:16px}
+  .quote .who{display:flex;align-items:center;gap:12px}
+  .quote .av{width:40px;height:40px;border-radius:50%;background:var(--surface2);display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--accent)}
+  .quote .who b{font-size:14px;display:block}
+  .quote .who span{font-size:12px;color:var(--muted)}
+  .placeholder-note{text-align:center;color:var(--muted);font-size:13px;margin-top:22px;font-style:italic}
+
+  /* FAQ */
+  .faq h2{font-size:clamp(26px,4vw,40px);text-align:center;margin-bottom:40px}
+  .faq-list{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
+  details{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:4px 22px;transition:border .15s}
+  details[open]{border-color:var(--accent)}
+  summary{cursor:pointer;list-style:none;font-weight:700;font-size:16px;padding:18px 0;display:flex;justify-content:space-between;align-items:center;gap:12px}
+  summary::-webkit-details-marker{display:none}
+  summary::after{content:"+";color:var(--accent);font-size:22px;font-weight:800;transition:transform .2s}
+  details[open] summary::after{transform:rotate(45deg)}
+  details p{color:var(--muted);font-size:15px;padding:0 0 20px}
+
+  /* LEAD / CTA */
+  .cta-final{background:linear-gradient(160deg,rgba(201,167,92,.1),transparent),var(--surface2);
+    border-top:1px solid var(--line)}
+  .cta-final .box{max-width:640px;margin:0 auto;text-align:center}
+  .cta-final h2{font-size:clamp(28px,4.5vw,46px);margin-bottom:14px}
+  .cta-final p{color:var(--muted);font-size:17px;margin-bottom:28px}
+  .lead-form{display:flex;gap:10px;max-width:460px;margin:0 auto;flex-wrap:wrap}
+  .lead-form input{flex:1;min-width:200px;background:var(--bg);border:1px solid var(--line);border-radius:40px;
+    padding:15px 20px;color:var(--text);font-size:15px;outline:none}
+  .lead-form input:focus{border-color:var(--accent)}
+  .lead-msg{margin-top:16px;font-size:14px;min-height:20px}
+
+  /* FOOTER */
+  footer{border-top:1px solid var(--line);padding:48px 0 40px;background:var(--bg)}
+  .foot{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+  .foot .logo{font-size:15px}
+  .socials{display:flex;gap:16px}
+  .socials a{color:var(--muted);font-size:14px;font-weight:600;transition:color .15s}
+  .socials a:hover{color:var(--accent)}
+  .fineprint{color:var(--muted);font-size:12px;margin-top:24px;text-align:center;line-height:1.7}
+
+  /* reveal */
+  .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s,transform .6s}
+  .reveal.in{opacity:1;transform:none}
+
+  @media(max-width:860px){
+    section{padding:70px 0}
+    .nav-links{position:fixed;inset:66px 0 auto 0;flex-direction:column;background:var(--surface);
+      padding:22px;gap:18px;border-bottom:1px solid var(--line);transform:translateY(-140%);transition:transform .28s;align-items:flex-start}
+    .nav-links.open{transform:none}
+    .burger{display:block}
+    .hero-photo{width:100%;opacity:.20;-webkit-mask-image:linear-gradient(180deg,transparent,#000 60%);mask-image:linear-gradient(180deg,transparent,#000 60%)}
+    .promise .grid,.tool .grid,.about .grid{grid-template-columns:1fr;gap:30px}
+    .steps-grid,.tiers,.testi-grid{grid-template-columns:1fr}
+    .tier.featured{order:-1}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a href="#top" class="logo">COACH JAY<span>.</span></a>
+    <nav class="nav-links" id="navLinks">
+      <a href="#how">How it works</a>
+      <a href="#programs">Programs</a>
+      <a href="#calculator">Free calculator</a>
+      <a href="#about">About</a>
+      <a href="#faq">FAQ</a>
+      <a href="#programs" class="btn btn-primary nav-cta">Start now</a>
+    </nav>
+    <button class="burger" id="burger" aria-label="Menu">☰</button>
+  </div>
+</header>
+
+<a id="top"></a>
+<section class="hero">
+  <div class="hero-photo" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="eyebrow reveal">Coaching for lasting change</div>
+    <h1 class="reveal">Learn to take control of your <span class="accent">own health.</span></h1>
+    <p class="sub reveal">This isn't a crash diet you'll abandon in three weeks. We rebuild the habits, use proven
+      behavior-change techniques, and coach you to real results — plus the skills to actually keep them. I'm in your corner the whole way.</p>
+    <div class="hero-cta reveal">
+      <a href="#programs" class="btn btn-primary">See the programs →</a>
+      <a href="#calculator" class="btn btn-ghost">Try the free macro calculator</a>
+    </div>
+    <div class="proof reveal">
+      <div class="stat"><b>5,100+</b><span>Lifters in the community</span></div>
+      <div class="stat"><b>3</b><span>Ways to work together</span></div>
+      <div class="stat"><b>100%</b><span>Built for change that lasts</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="promise" id="why">
+  <div class="wrap grid">
+    <div class="reveal">
+      <div class="eyebrow">The philosophy</div>
+      <h2>Real change is a lifestyle — not a six-week crash.</h2>
+      <p>Most programs hand you a rigid plan and a countdown. You white-knuckle it, hit the deadline, and everything
+        snaps back — because nothing about how you actually live ever changed.</p>
+      <p>We do it differently. Using proven <b class="accent">behavior-change techniques</b>, we build habits that fit
+        your life, teach you the why behind every decision, and coach you toward independence — so your results hold,
+        with me still in your corner whenever you want the support.</p>
+    </div>
+    <div class="reveal">
+      <p class="pull">"Give someone a meal plan and they eat for a cut. Teach them the why, and they run their own body for life."</p>
+    </div>
+  </div>
+</section>
+
+<section class="steps" id="how">
+  <div class="wrap center">
+    <div class="eyebrow reveal">How it works</div>
+    <h2 class="reveal">A simple path to change that actually sticks.</h2>
+    <div class="steps-grid">
+      <div class="step reveal"><div class="n">1</div><h3>Build the habits</h3>
+        <p>We start with your real life, not a crash diet. Small, proven behavior changes and the tools to train and eat with confidence.</p></div>
+      <div class="step reveal"><div class="n">2</div><h3>Learn the why</h3>
+        <p>Every decision comes with the reasoning, so you're not blindly following — you understand what to change and when.</p></div>
+      <div class="step reveal"><div class="n">3</div><h3>Keep it for life</h3>
+        <p>You walk away with results and the skills to maintain them — and a coach who stays in your corner whenever you need one.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="pricing" id="programs">
+  <div class="wrap center">
+    <div class="price-head reveal">
+      <div class="eyebrow">Work with me</div>
+      <h2>Three ways to start — each one teaches you to fish.</h2>
+      <p class="muted">Every tier includes the macro calculator and progressive-overload system. They scale in depth as you level up.</p>
+    </div>
+    <div class="tiers">
+
+      <div class="tier reveal">
+        <h3>The Blueprint</h3>
+        <div class="blurb">The self-starter's toolkit — everything you need to build the habits and train with confidence.</div>
+        <div class="cost">$97</div>
+        <ul>
+          <li>8-week training program (home + gym)</li>
+          <li>Macro Calculator — Level 1</li>
+          <li>Progressive Overload Guide — Level 1</li>
+          <li>Exercise video library</li>
+          <li>"Why it works" primer so you can adapt it</li>
+        </ul>
+        <a class="btn btn-ghost" href="https://buy.stripe.com/test_4gM00cbpa2j68UHduNf7i00" data-checkout="blueprint">Get The Blueprint</a>
+      </div>
+
+      <div class="tier featured reveal">
+        <div class="tag">Most popular</div>
+        <h3>12-Week Transformation</h3>
+        <div class="blurb">The full build — guided coaching, real feedback, and behavior-change support that makes results stick.</div>
+        <div class="cost">$297</div>
+        <ul>
+          <li>12-week periodized program (3 phases)</li>
+          <li>Macro Calculator — Level 2 (cut / recomp / bulk)</li>
+          <li>Progressive Overload — Level 2 (autoregulation)</li>
+          <li>6 bi-weekly check-ins (form + adjustments)</li>
+          <li>Nutrition framework you learn to run yourself</li>
+        </ul>
+        <a class="btn btn-primary" href="https://buy.stripe.com/test_fZu3co50M3na3An2Q9f7i01" data-checkout="transformation">Start the Transformation</a>
+      </div>
+
+      <div class="tier reveal">
+        <h3>1:1 Online Coaching</h3>
+        <div class="blurb">Fully custom coaching built to change your lifestyle for good — with ongoing support. Capped spots.</div>
+        <div class="cost">$249<small> / mo</small></div>
+        <ul>
+          <li>Custom programming, updated monthly</li>
+          <li>Weekly check-ins + direct message access</li>
+          <li>Macro Calculator — Level 3 (self-adjusting)</li>
+          <li>Progressive Overload — Level 3 (fatigue mgmt)</li>
+          <li>Habit &amp; behavior-change coaching built to last</li>
+        </ul>
+        <a class="btn btn-ghost" href="https://buy.stripe.com/test_8x27sE0KwcXK4Er8atf7i02" data-checkout="coaching">Apply for Coaching</a>
+      </div>
+
+    </div>
+    <p class="guarantee reveal">Secure checkout via Stripe · Instant delivery to your email · Not sure which fits? <a href="#calculator" class="accent">Start with the free calculator.</a></p>
+  </div>
+</section>
+
+<section class="tool" id="calculator">
+  <div class="wrap grid">
+    <div class="reveal">
+      <div class="eyebrow">Free tool</div>
+      <h2>The Macro Calculator</h2>
+      <p>The same tool that ships inside every program — free. Enter your name and email to unlock it, then get your
+        calorie and macro targets with the reasoning behind every number so you actually learn how it works.</p>
+      <a href="calculator.html" class="btn btn-primary" target="_blank" rel="noopener">Open the calculator →</a>
+    </div>
+    <div class="tool-card reveal">
+      <div class="big">TDEE</div>
+      <p class="muted">Calories · Protein · Carbs · Fats — calculated and explained</p>
+      <a href="calculator.html" class="btn btn-ghost" target="_blank" rel="noopener">Launch free tool</a>
+    </div>
+  </div>
+</section>
+
+<section class="about" id="about">
+  <div class="wrap grid">
+    <div class="photo reveal" role="img" aria-label="James Barnhart training in the gym"></div>
+    <div class="reveal">
+      <div class="eyebrow">Who's coaching you</div>
+      <h2>Hey, I'm James.</h2>
+      <p>I built a community of thousands of lifters by keeping it real — the funny side of the gym and the honest
+        side of getting strong. No guru act, no magic shortcuts.</p>
+      <p>I got tired of watching people chase results they could never keep. So I coach differently — real lifestyle
+        and behavior change, habits that fit your life, and the skills to maintain everything you build, with me
+        coaching you the whole way.</p>
+      <p>If you want lasting change instead of another restart every January — that's what I do.</p>
+    </div>
+  </div>
+</section>
+
+<section class="testi">
+  <div class="wrap">
+    <h2 class="reveal">Real people, real independence.</h2>
+    <div class="testi-grid">
+      <div class="quote reveal"><p>"I finally understand my macros instead of guessing. Down 14 lbs and I actually know how I did it."</p>
+        <div class="who"><div class="av">A</div><div><b>Client name</b><span>The Blueprint</span></div></div></div>
+      <div class="quote reveal"><p>"The check-ins taught me to adjust my own program. By week 12 I was running it myself. Exactly what he promised."</p>
+        <div class="who"><div class="av">M</div><div><b>Client name</b><span>12-Week Transformation</span></div></div></div>
+      <div class="quote reveal"><p>"Best coaching I've done — not because he held my hand, but because he made sure I'd never need it again."</p>
+        <div class="who"><div class="av">J</div><div><b>Client name</b><span>1:1 Coaching</span></div></div></div>
+    </div>
+    <p class="placeholder-note reveal">↑ Placeholder testimonials — swap in real client wins and names as they come in.</p>
+  </div>
+</section>
+
+<section class="faq" id="faq">
+  <div class="wrap">
+    <h2 class="reveal">Questions, answered.</h2>
+    <div class="faq-list">
+      <details class="reveal"><summary>I'm a total beginner — is this for me?</summary><p>Yes. The Blueprint and the 12-Week Transformation both start where you are, with home and gym tracks and video demos. The whole point is to teach you, not assume you already know.</p></details>
+      <details class="reveal"><summary>What do I actually get, and how fast?</summary><p>Digital delivery is instant — the moment you check out, your program, calculator access, and guides are emailed to you automatically. No waiting.</p></details>
+      <details class="reveal"><summary>What's the difference between the tiers?</summary><p>The Blueprint is a self-guided program. The 12-Week Transformation adds check-ins and feedback. 1:1 Coaching is fully custom with weekly contact. All three include the same core tools — they just scale in depth and support.</p></details>
+      <details class="reveal"><summary>Do I have to stay subscribed forever?</summary><p>No. The one-time programs never rebill, and 1:1 coaching is built to make the change stick — so you're not reliant on a plan to stay on track. Keep the ongoing support as long as it's helping; when you're ready to run with it, you'll have the habits and the skills to maintain your results.</p></details>
+      <details class="reveal"><summary>Is the macro calculator really free?</summary><p>Completely free — just drop your name and email to unlock it. It's the same tool inside the programs, and you can use it as long as you like.</p></details>
+      <details class="reveal"><summary>What if I have questions before buying?</summary><p>Drop your email below or DM me on Instagram <a href="https://instagram.com/igjamesss" class="accent" target="_blank" rel="noopener">@igjamesss</a> and I'll help you pick the right starting point.</p></details>
+    </div>
+  </div>
+</section>
+
+<section class="cta-final" id="start">
+  <div class="wrap">
+    <div class="box reveal">
+      <div class="eyebrow">Start free</div>
+      <h2>Get one free training + nutrition tip a week.</h2>
+      <p>Drop your email — I'll send you a starter guide and the occasional no-BS tip. No spam, unsubscribe anytime.</p>
+      <form class="lead-form" id="leadForm">
+        <input type="email" id="leadEmail" placeholder="you@email.com" required aria-label="Email">
+        <button type="submit" class="btn btn-primary">Send it →</button>
+      </form>
+      <div class="lead-msg" id="leadMsg"></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <a href="#top" class="logo">COACH JAY<span class="accent">.</span></a>
+      <div class="socials">
+        <a href="https://instagram.com/igjamesss" target="_blank" rel="noopener">Instagram</a>
+        <a href="#programs">Programs</a>
+        <a href="calculator.html" target="_blank" rel="noopener">Free tool</a>
+      </div>
+    </div>
+    <p class="fineprint">© <span id="yr"></span> James Barnhart Fitness. Results vary and depend on your effort and consistency — this is education and coaching, not medical advice. Consult a physician before starting any new training or nutrition program.</p>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('yr').textContent=new Date().getFullYear();
+  // mobile nav
+  const burger=document.getElementById('burger'),navLinks=document.getElementById('navLinks');
+  burger.addEventListener('click',()=>navLinks.classList.toggle('open'));
+  navLinks.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>navLinks.classList.remove('open')));
+  // reveal on scroll
+  const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}})},{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+  // lead capture: posts to local server, falls back to a mailto so it always works
+  const form=document.getElementById('leadForm'),msg=document.getElementById('leadMsg');
+  form.addEventListener('submit',async e=>{
+    e.preventDefault();
+    const email=document.getElementById('leadEmail').value.trim();
+    if(!email)return;
+    msg.style.color='var(--muted)';msg.textContent='Sending…';
+    try{
+      const r=await fetch('/api/lead',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,source:'website'})});
+      if(r.ok){msg.style.color='var(--accent)';msg.textContent='You’re in — check your inbox soon. 💪';form.reset();return;}
+      throw new Error('bad');
+    }catch(_){
+      // static-hosting fallback: open an email to James with the address
+      msg.style.color='var(--accent)';msg.textContent='Opening your email app to finish…';
+      window.location.href='mailto:james.barnhart12@gmail.com?subject=New%20lead%20from%20website&body='+encodeURIComponent('Please add me to your list: '+email);
+    }
+  });
+</script>
+</body>
+</html>

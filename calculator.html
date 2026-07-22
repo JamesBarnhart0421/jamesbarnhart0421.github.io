@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Free Macro Calculator — Coach Jay</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0c0d0f; --panel:#141517; --panel2:#1a1c1f; --line:rgba(255,255,255,.08);
+    --txt:#f2f0ec; --mut:#9a9793; --acc:#c9a75c; --acc-ink:#141009;
+    --acc2:#8fb3c9; --warn:#d9a24a; --good:#8fc9a0;
+    --l1:#c9a75c; --l2:#d8bd82; --l3:#b79a5a;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:'Inter',-apple-system,Segoe UI,Roboto,sans-serif;
+    background:radial-gradient(1100px 560px at 75% -12%,#17181b,#0c0d0f 62%);
+    color:var(--txt);min-height:100vh;padding:24px;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:860px;margin:0 auto}
+  .brandbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+  .brand{font-family:'Archivo Black',sans-serif;font-size:15px;letter-spacing:.5px}
+  .brand span{color:var(--acc)}
+  .back{font-size:13px;color:var(--mut);text-decoration:none}
+  .back:hover{color:var(--acc)}
+  h1{font-family:'Archivo Black',sans-serif;font-size:26px;margin:0 0 4px;letter-spacing:-.5px}
+  .sub{color:var(--mut);font-size:13.5px;margin-bottom:20px}
+  .tiers{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap}
+  .tier{flex:1;min-width:150px;padding:13px 15px;border:1px solid var(--line);border-radius:13px;
+    background:var(--panel2);cursor:pointer;transition:.15s;position:relative}
+  .tier:hover{border-color:var(--acc)}
+  .tier.on{background:var(--panel);box-shadow:0 0 0 1px var(--acc) inset}
+  .tier .lvl{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--mut)}
+  .tier .nm{font-weight:700;font-size:15px;margin:3px 0}
+  .tier .pr{font-size:12px;color:var(--acc)}
+  .tier.l1.on{box-shadow:0 0 0 1px var(--l1) inset} .tier.l1 .pr{color:var(--l1)}
+  .tier.l2.on{box-shadow:0 0 0 1px var(--l2) inset} .tier.l2 .pr{color:var(--l2)}
+  .tier.l3.on{box-shadow:0 0 0 1px var(--l3) inset} .tier.l3 .pr{color:var(--l3)}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:22px;margin-bottom:16px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px}
+  label{display:block;font-size:12px;color:var(--mut);margin-bottom:5px}
+  input,select{width:100%;padding:11px 12px;background:#0e0f11;border:1px solid var(--line);
+    border-radius:10px;color:var(--txt);font-size:14px;font-family:inherit}
+  input:focus,select:focus{outline:none;border-color:var(--acc)}
+  .seg{display:flex;gap:6px;flex-wrap:wrap}
+  .seg button{flex:1;min-width:60px;padding:10px 6px;background:#0e0f11;border:1px solid var(--line);
+    border-radius:10px;color:var(--mut);cursor:pointer;font-size:13px;transition:.12s;font-family:inherit;font-weight:600}
+  .seg button.on{background:var(--acc);color:var(--acc-ink);border-color:var(--acc);font-weight:700}
+  .adv{margin-top:16px;padding-top:16px;border-top:1px dashed var(--line)}
+  .adv h3{font-size:12px;text-transform:uppercase;letter-spacing:1px;color:var(--acc);margin:0 0 12px}
+  .results{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px;margin-top:4px}
+  .stat{background:var(--panel2);border:1px solid var(--line);border-radius:13px;padding:16px;text-align:center}
+  .stat .v{font-family:'Archivo Black',sans-serif;font-size:28px}
+  .stat .k{font-size:11px;color:var(--mut);text-transform:uppercase;letter-spacing:.5px;margin-top:2px}
+  .stat.p .v{color:var(--good)} .stat.c .v{color:var(--acc2)} .stat.f .v{color:var(--warn)} .stat.cal .v{color:var(--acc)}
+  .why{background:rgba(201,167,92,.08);border:1px solid rgba(201,167,92,.25);border-radius:11px;
+    padding:13px 15px;margin-top:14px;font-size:13px;line-height:1.55;color:#ecdcbd}
+  .why b{color:#fff}
+  .teach{font-size:12.5px;color:var(--mut);line-height:1.6;margin-top:10px}
+  .note{font-size:12.5px;color:var(--warn);margin-top:10px}
+  .foot{text-align:center;color:var(--mut);font-size:11px;margin-top:8px}
+  .cta-strip{text-align:center;margin-top:20px}
+  .cta-strip a{display:inline-block;background:var(--acc);color:var(--acc-ink);font-weight:700;font-size:14px;
+    padding:13px 26px;border-radius:40px;text-decoration:none}
+  .hidden{display:none}
+  .split{display:flex;justify-content:space-between;font-size:12px;color:var(--mut);margin-top:4px}
+
+  /* ---- lead gate ---- */
+  #gate{position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;padding:22px;
+    background:radial-gradient(90% 80% at 50% 20%,rgba(24,25,28,.98),rgba(8,9,11,.99));transition:opacity .25s}
+  .gate-card{max-width:420px;width:100%;background:var(--panel);border:1px solid var(--line);border-radius:20px;
+    padding:36px 30px;text-align:center;box-shadow:0 30px 70px rgba(0,0,0,.55)}
+  .gate-logo{font-family:'Archivo Black',sans-serif;font-size:15px;letter-spacing:.5px;margin-bottom:18px}
+  .gate-logo span{color:var(--acc)}
+  .gate-card h2{font-family:'Archivo Black',sans-serif;font-size:24px;margin:0 0 10px;letter-spacing:-.5px}
+  .gate-card p{color:var(--mut);font-size:14.5px;line-height:1.55;margin:0 0 22px}
+  #gateForm{display:flex;flex-direction:column;gap:10px}
+  #gateForm input{background:#0e0f11;border:1px solid var(--line);border-radius:40px;padding:14px 18px;color:var(--txt);font-size:15px}
+  #gateForm input:focus{outline:none;border-color:var(--acc)}
+  .btn-primary{background:var(--acc);color:var(--acc-ink);border:0;border-radius:40px;padding:14px 18px;
+    font-weight:700;font-size:15px;cursor:pointer;font-family:inherit;transition:filter .15s}
+  .btn-primary:hover{filter:brightness(1.06)}
+  .gate-msg{font-size:13px;margin-top:12px;min-height:16px;color:var(--acc)}
+  .gate-fine{color:var(--mut);font-size:11.5px;margin-top:14px;line-height:1.5}
+</style>
+</head>
+<body>
+
+<!-- Lead gate: name + email required before the tool unlocks -->
+<div id="gate">
+  <div class="gate-card">
+    <div class="gate-logo">COACH JAY<span>.</span></div>
+    <h2>Your free macro calculator</h2>
+    <p>Get your exact calorie & macro targets — with the reasoning behind every number so you actually learn how it works. Enter your info and it's yours.</p>
+    <form id="gateForm">
+      <input id="gName" type="text" placeholder="First name" autocomplete="given-name" required>
+      <input id="gEmail" type="email" placeholder="you@email.com" autocomplete="email" required>
+      <button type="submit" class="btn-primary">Unlock the calculator →</button>
+    </form>
+    <div class="gate-msg" id="gateMsg"></div>
+    <div class="gate-fine">No spam — just occasional no-BS training &amp; nutrition tips. Unsubscribe anytime.</div>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="brandbar">
+    <div class="brand">COACH JAY<span>.</span></div>
+    <a class="back" href="/">← Back to site</a>
+  </div>
+  <h1>Macro Calculator</h1>
+  <div class="sub">Built to teach you the <i>why</i> — so the results are yours to keep and maintain.</div>
+
+  <div class="tiers">
+    <div class="tier l1 on" data-lvl="1"><div class="lvl">Level 1</div><div class="nm">The Blueprint</div><div class="pr">$97 · foundations</div></div>
+    <div class="tier l2" data-lvl="2"><div class="lvl">Level 2</div><div class="nm">12-Week Transform</div><div class="pr">$297 · adaptive</div></div>
+    <div class="tier l3" data-lvl="3"><div class="lvl">Level 3</div><div class="nm">1:1 Coaching</div><div class="pr">$249/mo · self-managing</div></div>
+  </div>
+
+  <div class="card">
+    <div class="grid">
+      <div><label>Weight (lb)</label><input id="w" type="number" value="180"></div>
+      <div><label>Height (in)</label><input id="h" type="number" value="70"></div>
+      <div><label>Age</label><input id="age" type="number" value="30"></div>
+      <div><label>Sex</label><select id="sex"><option value="m">Male</option><option value="f">Female</option></select></div>
+    </div>
+    <div style="margin-top:14px"><label>Activity level</label>
+      <div class="seg" id="act">
+        <button data-v="1.2">Sedentary</button>
+        <button data-v="1.375" class="on">Light</button>
+        <button data-v="1.55">Moderate</button>
+        <button data-v="1.725">Very active</button>
+        <button data-v="1.9">Athlete</button>
+      </div>
+    </div>
+    <div style="margin-top:14px"><label>Goal</label>
+      <div class="seg" id="goal">
+        <button data-v="cut" class="on">Lose fat</button>
+        <button data-v="maint">Maintain</button>
+        <button data-v="gain">Build muscle</button>
+      </div>
+    </div>
+
+    <!-- L2 controls -->
+    <div class="adv hidden" id="advL2">
+      <h3>Level 2 — Adaptive controls</h3>
+      <label>Goal intensity</label>
+      <div class="seg" id="intensity">
+        <button data-v="0.85">Aggressive cut</button>
+        <button data-v="0.9" class="on">Moderate</button>
+        <button data-v="0.97">Recomp</button>
+        <button data-v="1.1">Lean bulk</button>
+      </div>
+      <div class="split"><span>Trains you <b>when</b> to recalc:</span><span>every 10–12 lb or 2-wk stall</span></div>
+    </div>
+
+    <!-- L3 controls -->
+    <div class="adv hidden" id="advL3">
+      <h3>Level 3 — Weekly self-adjust</h3>
+      <div class="grid">
+        <div><label>Avg weight change last 2 wks (lb)</label><input id="trend" type="number" value="0" step="0.1"></div>
+        <div><label>Training performance</label><select id="perf">
+          <option value="up">Lifts going up</option><option value="flat" selected>Holding steady</option><option value="down">Dropping / drained</option></select></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="results">
+      <div class="stat cal"><div class="v" id="rCal">–</div><div class="k">Calories</div></div>
+      <div class="stat p"><div class="v" id="rP">–</div><div class="k">Protein (g)</div></div>
+      <div class="stat c"><div class="v" id="rC">–</div><div class="k">Carbs (g)</div></div>
+      <div class="stat f"><div class="v" id="rF">–</div><div class="k">Fat (g)</div></div>
+    </div>
+    <div class="why" id="why"></div>
+    <div class="teach" id="teach"></div>
+    <div class="note hidden" id="note"></div>
+  </div>
+  <div class="cta-strip"><a href="/#programs">Ready for the full plan? See the programs →</a></div>
+  <div class="foot">Mifflin-St Jeor BMR · this is education, not medical advice. Recalculate as your weight and training change.</div>
+</div>
+
+<script>
+// ---- lead gate ----
+(function(){
+  const gate=document.getElementById('gate');
+  if(localStorage.getItem('cj_lead')){gate.remove();return;}
+  document.getElementById('gateForm').addEventListener('submit',async e=>{
+    e.preventDefault();
+    const name=document.getElementById('gName').value.trim();
+    const email=document.getElementById('gEmail').value.trim();
+    const msg=document.getElementById('gateMsg');
+    if(!email||!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){msg.textContent='Enter a valid email to continue.';return;}
+    msg.style.color='var(--mut)';msg.textContent='Unlocking…';
+    try{await fetch('/api/lead',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,name,source:'calculator'})});}catch(_){}
+    try{localStorage.setItem('cj_lead',JSON.stringify({name,email,ts:Date.now()}));}catch(_){}
+    gate.style.opacity='0';setTimeout(()=>gate.remove(),250);
+  });
+})();
+
+let LVL=1, activity=1.375, goal='cut', intensity=0.9;
+
+function seg(id,cb){document.querySelectorAll('#'+id+' button').forEach(b=>b.onclick=()=>{
+  b.parentNode.querySelectorAll('button').forEach(x=>x.classList.remove('on'));
+  b.classList.add('on');cb(b.dataset.v);calc();});}
+seg('act',v=>activity=+v); seg('goal',v=>goal=v); seg('intensity',v=>intensity=+v);
+['w','h','age','sex','trend','perf'].forEach(id=>document.getElementById(id).oninput=calc);
+
+document.querySelectorAll('.tier').forEach(t=>t.onclick=()=>{
+  document.querySelectorAll('.tier').forEach(x=>x.classList.remove('on'));
+  t.classList.add('on'); LVL=+t.dataset.lvl;
+  document.getElementById('advL2').classList.toggle('hidden',LVL<2);
+  document.getElementById('advL3').classList.toggle('hidden',LVL<3);
+  calc();
+});
+
+function calc(){
+  const w=+w_.value, h=+document.getElementById('h').value, age=+document.getElementById('age').value,
+        sex=document.getElementById('sex').value;
+  const kg=w/2.2046, cm=h*2.54;
+  let bmr=10*kg+6.25*cm-5*age+(sex==='m'?5:-161);
+  let tdee=bmr*activity;
+  let cal, why, teach='', note='';
+
+  // ---- Level 1: single fixed adjustment ----
+  if(LVL===1){
+    const adj = goal==='cut'?-500 : goal==='gain'?+300 : 0;
+    cal = tdee+adj;
+    why=`Your <b>maintenance</b> is ~${Math.round(tdee)} cal (BMR ${Math.round(bmr)} × activity). `+
+      (goal==='cut'?`A 500-cal deficit ≈ <b>1 lb/week</b> loss.`:
+       goal==='gain'?`A 300-cal surplus builds muscle while limiting fat gain.`:
+       `Eating at maintenance holds your weight while you recomp.`);
+    teach=`<b>Why this works:</b> your body burns ~${Math.round(tdee)} cal/day just living + moving. Eat less → fat loss; more → growth. `+
+      `Protein is anchored at ~1 g per lb of bodyweight (muscle protection), fat at ~0.4 g/lb (hormones), and carbs fill the rest (training fuel). Learn these three jobs and you understand every diet.`;
+  }
+  // ---- Level 2: adaptive intensity + recalc logic ----
+  if(LVL===2){
+    cal = tdee*intensity;
+    const lbwk = ((tdee-cal)/500).toFixed(1);
+    why=`Maintenance ~${Math.round(tdee)} cal. At <b>${Math.round(intensity*100)}%</b> of that you're `+
+      (intensity<1?`in a deficit (~${Math.abs(lbwk)} lb/wk)`:intensity>1?`in a surplus (lean bulk)`:`near maintenance (recomp)`)+`.`;
+    teach=`<b>Level 2 adds the "when":</b> recalc your maintenance every time you drop/gain ~10–12 lb OR progress stalls for 2 weeks — because a lighter body burns fewer calories. `+
+      `Aggressive cuts move fast but cost muscle; recomp is slow but you keep everything. On training days, push more of your carbs; on rest days, pull them back.`;
+    note='💡 Level 2 tip: schedule a diet break (1–2 weeks at maintenance) every 8–10 weeks of dieting to reset hormones and adherence.';
+    document.getElementById('note').classList.remove('hidden');
+  }
+  // ---- Level 3: weekly auto-adjust from real data ----
+  if(LVL===3){
+    const trend=+document.getElementById('trend').value, perf=document.getElementById('perf').value;
+    let base=tdee*intensity, tweak=0, dir='';
+    if(goal==='cut'){ if(trend>-0.5){tweak=-150;dir='not losing fast enough → trim 150';}
+      else if(trend<-2){tweak=+120;dir='dropping too fast (muscle risk) → add 120';} else dir='loss on target → hold';}
+    else if(goal==='gain'){ if(trend<0.25){tweak=+150;dir='not gaining → add 150';}
+      else if(trend>0.75){tweak=-120;dir='gaining too fast (fat) → trim 120';} else dir='lean gain on track → hold';}
+    else { if(trend>0.5)tweak=-120,dir='drifting up → trim 120'; else if(trend<-0.5)tweak=+120,dir='drifting down → add 120'; else dir='stable recomp → hold';}
+    if(perf==='down'){tweak+=100;dir+=' · lifts dropping → +100 recovery';}
+    cal=base+tweak;
+    why=`Measured trend <b>${trend>0?'+':''}${trend} lb/2wk</b> vs your ${goal} goal → <b>${dir}</b>. `+
+      `This is the exact weekly adjustment a coach makes for you — and with coaching, you learn to read it yourself.`;
+    teach=`<b>Level 3 = coached self-management:</b> stop trusting the formula's guess and start trusting <i>your own logged data</i>. Weigh daily, average weekly, feed the 2-week trend back in. `+
+      `Metabolism adapts, so the right number is whatever your scale + lifts actually say. Master this loop with coaching and you own a skill that lasts for life.`;
+    note='🎯 The goal: run this loop with your coach for a few weeks and it becomes second nature — results you know how to maintain.';
+    document.getElementById('note').classList.remove('hidden');
+  }
+  if(LVL<2)document.getElementById('note').classList.add('hidden');
+
+  // macro split
+  let pPer = goal==='gain'?1.0:1.1;
+  let fPer = 0.4;
+  let p=Math.round(w*pPer), f=Math.round(w*fPer);
+  let c=Math.round((cal-(p*4)-(f*9))/4);
+  if(c<0)c=0;
+
+  document.getElementById('rCal').textContent=Math.round(cal);
+  document.getElementById('rP').textContent=p;
+  document.getElementById('rC').textContent=c;
+  document.getElementById('rF').textContent=f;
+  document.getElementById('why').innerHTML=why;
+  document.getElementById('teach').innerHTML=teach;
+  if(note){document.getElementById('note').textContent=note;}
+}
+const w_=document.getElementById('w');
+calc();
+</script>
+</body>
+</html>
