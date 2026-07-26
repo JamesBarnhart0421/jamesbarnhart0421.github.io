@@ -100,6 +100,35 @@
   .tier li::before{content:"✓";position:absolute;left:0;color:var(--accent);font-weight:800}
   .tier .btn{width:100%;justify-content:center;margin-top:auto}
   .guarantee{margin-top:30px;color:var(--muted);font-size:14px}
+  .starter{display:flex;align-items:center;gap:22px;flex-wrap:wrap;justify-content:space-between;
+    background:var(--surface2);border:1px dashed var(--accent);border-radius:18px;padding:22px 26px;margin-top:36px}
+  .starter .s-left{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap}
+  .starter .s-tag{font-family:'Archivo Black',sans-serif;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+  .starter .s-cost{font-family:'Archivo Black',sans-serif;font-size:30px;line-height:1}
+  .starter .s-cost small{font-size:13px;color:var(--muted);font-family:'Inter';font-weight:600}
+  .starter .s-desc{color:#dfe4e2;font-size:14.5px;max-width:520px}
+  .starter .btn{white-space:nowrap}
+  @media(max-width:640px){.starter{justify-content:center;text-align:center}}
+  /* QUESTIONNAIRE */
+  .q-ov{position:fixed;inset:0;background:rgba(8,9,10,.82);backdrop-filter:blur(4px);z-index:200;display:none;align-items:center;justify-content:center;padding:20px}
+  .q-ov.open{display:flex}
+  .q-card{background:var(--surface2);border:1px solid var(--line);border-radius:22px;max-width:520px;width:100%;padding:34px 32px;position:relative;box-shadow:0 30px 80px rgba(0,0,0,.5)}
+  .q-close{position:absolute;top:14px;right:18px;background:none;border:none;color:var(--muted);font-size:22px;cursor:pointer;line-height:1}
+  .q-prog{display:flex;gap:6px;margin-bottom:22px}
+  .q-prog span{height:4px;flex:1;border-radius:3px;background:var(--line);transition:.2s}
+  .q-prog span.on{background:var(--accent)}
+  .q-eyebrow{font-family:'Archivo Black',sans-serif;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
+  .q-card h3{font-size:23px;margin:0 0 8px;line-height:1.25}
+  .q-card p.q-sub{color:var(--muted);font-size:15px;margin:0 0 22px}
+  .q-in{width:100%;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px;color:var(--text);font-size:16px;font-family:inherit}
+  .q-in:focus{outline:none;border-color:var(--accent)}
+  .q-opts{display:flex;flex-direction:column;gap:10px}
+  .q-opt{text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px;color:var(--text);font-size:15.5px;cursor:pointer;transition:.15s;font-family:inherit}
+  .q-opt:hover{border-color:var(--accent);transform:translateY(-1px)}
+  .q-actions{display:flex;gap:12px;margin-top:22px;align-items:center}
+  .q-actions .btn{flex:1;justify-content:center}
+  .q-back{background:none;border:none;color:var(--muted);font-size:14px;cursor:pointer;font-family:inherit;flex:0 0 auto}
+  .q-note{font-size:12.5px;color:var(--muted);margin-top:14px;text-align:center}
 
   /* TOOL */
   .tool{background:var(--surface)}
@@ -256,6 +285,16 @@
       <h2>Three ways to start — each one teaches you to fish.</h2>
       <p class="muted">Every tier includes the macro calculator and progressive-overload system. They scale in depth as you level up.</p>
     </div>
+
+    <div class="starter reveal">
+      <div class="s-left">
+        <span class="s-tag">Start here</span>
+        <span class="s-cost">$29</span>
+        <span class="s-desc"><strong>4-Week Hypertrophy Kickstart</strong> — a focused muscle-building block to get you training with intent. The low-commitment way to try my coaching before the full program.</span>
+      </div>
+      <a class="btn btn-primary" href="https://buy.stripe.com/4gMaER7HBbS39cTgRK4F204" data-checkout="kickstart">Get the Kickstart</a>
+    </div>
+
     <div class="tiers">
 
       <div class="tier reveal">
@@ -290,7 +329,7 @@
       <div class="tier reveal">
         <h3>1:1 Online Coaching</h3>
         <div class="blurb">Fully custom coaching built to change your lifestyle for good — with ongoing support. Capped spots.</div>
-        <div class="cost">$249<small> / mo</small></div>
+        <div class="cost">$349<small> / mo</small></div>
         <ul>
           <li>Custom programming, updated monthly</li>
           <li>Weekly check-ins + direct message access</li>
@@ -298,7 +337,7 @@
           <li>Progressive Overload — Level 3 (fatigue mgmt)</li>
           <li>Habit &amp; behavior-change coaching built to last</li>
         </ul>
-        <a class="btn btn-ghost" href="https://buy.stripe.com/dRm00daTN7BN9cT44Y4F202" data-checkout="coaching">Apply for Coaching</a>
+        <a class="btn btn-ghost" href="https://buy.stripe.com/8x26oBbXR3lx2Ov30U4F203" data-checkout="coaching">Apply for Coaching</a>
       </div>
 
     </div>
@@ -350,7 +389,9 @@
       <div class="quote reveal"><p>"Best coaching I've done — not because he held my hand, but because he made sure I'd never need it again."</p>
         <div class="who"><div class="av">J</div><div><b>Jenna Cole</b><span>1:1 Coaching</span></div></div></div>
     </div>
-    <!-- TODO: swap in real client wins + names -->
+    <!-- TODO: swap in real client wins + names as they come in -->
+
+    <!-- placeholder testimonials with generated names, per owner request -->
   </div>
 </section>
 
@@ -397,8 +438,66 @@
   </div>
 </footer>
 
+<div class="q-ov" id="qOv" role="dialog" aria-modal="true" aria-label="A few quick questions before checkout">
+  <div class="q-card">
+    <button class="q-close" id="qClose" aria-label="Close">✕</button>
+    <div class="q-prog" id="qProg"></div>
+    <div id="qBody"></div>
+  </div>
+</div>
 <script>
   document.getElementById('yr').textContent=new Date().getFullYear();
+  // ===== Warm questionnaire between program choice and checkout =====
+  (function(){
+    const OFFERS={kickstart:'4-Week Kickstart',blueprint:'The Blueprint',transformation:'12-Week Transformation',coaching:'1:1 Coaching'};
+    const GOALS=['Build muscle','Lose fat','Get stronger','Feel better & consistent'];
+    const EXP=['Just starting out','Some training experience','Experienced lifter'];
+    const STEPS=4;
+    const ov=document.getElementById('qOv'),qbody=document.getElementById('qBody'),prog=document.getElementById('qProg');
+    let ctx=null,step=0;
+    function setProg(){prog.innerHTML='';for(let i=0;i<STEPS;i++){const s=document.createElement('span');if(i<=Math.min(step,STEPS-1))s.className='on';prog.appendChild(s);}}
+    function esc(s){return (s||'').replace(/[^a-zA-Z0-9]+/g,'-').replace(/^-+|-+$/g,'').toLowerCase();}
+    function openQ(a){ctx={base:a.href,label:a.dataset.checkout,offer:OFFERS[a.dataset.checkout]||'your program',name:'',goal:'',exp:'',email:''};step=0;render();ov.classList.add('open');}
+    function closeQ(){ov.classList.remove('open');}
+    function go(){
+      let url=ctx.base;const sep=url.indexOf('?')>=0?'&':'?';
+      const ref=(esc(ctx.goal)+'_'+esc(ctx.exp)+'_'+esc(ctx.name)).slice(0,190);
+      const params=[];
+      if(ctx.email)params.push('prefilled_email='+encodeURIComponent(ctx.email));
+      params.push('client_reference_id='+encodeURIComponent(ref));
+      window.location.href=url+sep+params.join('&');
+    }
+    function render(){
+      setProg();
+      if(step===0){
+        qbody.innerHTML='<div class="q-eyebrow">Before we start</div><h3>First — what should I call you?</h3><p class="q-sub">I like to know who I’m actually working with. 20 seconds, then you’re straight to secure checkout.</p><input class="q-in" id="qName" placeholder="Your first name" autocomplete="given-name"><div class="q-actions"><button class="btn btn-primary" id="qNext">Continue</button></div>';
+        const inp=document.getElementById('qName');inp.value=ctx.name;setTimeout(()=>inp.focus(),40);
+        inp.addEventListener('keydown',e=>{if(e.key==='Enter')document.getElementById('qNext').click();});
+        document.getElementById('qNext').onclick=()=>{ctx.name=inp.value.trim();step=1;render();};
+      }else if(step===1){
+        qbody.innerHTML='<div class="q-eyebrow">Step 2 of 4</div><h3>'+(ctx.name?('Good to meet you, '+ctx.name+'. '):'')+'What’s your main goal?</h3><p class="q-sub">So the first thing I send you speaks to what you actually want.</p><div class="q-opts">'+GOALS.map(g=>'<button class="q-opt" data-v="'+g+'">'+g+'</button>').join('')+'</div><div class="q-actions"><button class="q-back" id="qBack">← Back</button></div>';
+        qbody.querySelectorAll('.q-opt').forEach(b=>b.onclick=()=>{ctx.goal=b.dataset.v;step=2;render();});
+        document.getElementById('qBack').onclick=()=>{step=0;render();};
+      }else if(step===2){
+        qbody.innerHTML='<div class="q-eyebrow">Step 3 of 4</div><h3>Where are you right now?</h3><p class="q-sub">No wrong answer — it just helps me meet you where you are.</p><div class="q-opts">'+EXP.map(g=>'<button class="q-opt" data-v="'+g+'">'+g+'</button>').join('')+'</div><div class="q-actions"><button class="q-back" id="qBack">← Back</button></div>';
+        qbody.querySelectorAll('.q-opt').forEach(b=>b.onclick=()=>{ctx.exp=b.dataset.v;step=3;render();});
+        document.getElementById('qBack').onclick=()=>{step=1;render();};
+      }else if(step===3){
+        qbody.innerHTML='<div class="q-eyebrow">Last step</div><h3>Where should I send your program?</h3><p class="q-sub">Your files are delivered here automatically the moment you check out.</p><input class="q-in" id="qEmail" type="email" placeholder="you@email.com" autocomplete="email"><div class="q-actions"><button class="q-back" id="qBack">← Back</button><button class="btn btn-primary" id="qNext">Continue to checkout</button></div><p class="q-note">🔒 Secure checkout via Stripe · Your info is only used to deliver your program.</p>';
+        const inp=document.getElementById('qEmail');inp.value=ctx.email;setTimeout(()=>inp.focus(),40);
+        inp.addEventListener('keydown',e=>{if(e.key==='Enter')document.getElementById('qNext').click();});
+        document.getElementById('qBack').onclick=()=>{step=2;render();};
+        document.getElementById('qNext').onclick=()=>{const v=inp.value.trim();if(!/.+@.+\..+/.test(v)){inp.style.borderColor='#e0662f';inp.focus();return;}ctx.email=v;step=4;render();};
+      }else{
+        qbody.innerHTML='<div class="q-eyebrow">You’re all set'+(ctx.name?(', '+ctx.name):'')+'</div><h3>Taking you to secure checkout…</h3><p class="q-sub">Your '+ctx.offer+' lands in your inbox the second you’re done. Redirecting now — tap below if it doesn’t move.</p><div class="q-actions"><button class="btn btn-primary" id="qGo">Continue to secure checkout →</button></div>';
+        document.getElementById('qGo').onclick=go;setTimeout(go,900);
+      }
+    }
+    document.querySelectorAll('a[data-checkout]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();openQ(a);}));
+    document.getElementById('qClose').onclick=closeQ;
+    ov.addEventListener('click',e=>{if(e.target===ov)closeQ();});
+    document.addEventListener('keydown',e=>{if(e.key==='Escape'&&ov.classList.contains('open'))closeQ();});
+  })();
   // mobile nav
   const burger=document.getElementById('burger'),navLinks=document.getElementById('navLinks');
   burger.addEventListener('click',()=>navLinks.classList.toggle('open'));
