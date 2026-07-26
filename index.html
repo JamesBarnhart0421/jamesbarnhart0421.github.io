@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%277%27 fill=%27%230c0d0f%27/%3E%3Ctext x=%2716%27 y=%2722%27 font-family=%27Arial%27 font-size=%2715%27 font-weight=%27bold%27 fill=%27%23c9a75c%27 text-anchor=%27middle%27%3ECJ%3C/text%3E%3C/svg%3E">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Coach Jay — Take Control of Your Own Health</title>
 <meta name="description" content="Fitness coaching built on lasting lifestyle and behavior change — programs, a macro calculator, and habit coaching that deliver real results you'll actually know how to maintain.">
@@ -99,6 +100,10 @@
   .tier li{font-size:14.5px;padding-left:26px;position:relative;color:#dfe4e2}
   .tier li::before{content:"✓";position:absolute;left:0;color:var(--accent);font-weight:800}
   .tier .btn{width:100%;justify-content:center;margin-top:auto}
+  .tier-more{display:inline-block;margin-top:14px;font-size:13.5px;font-weight:600;color:var(--muted);text-align:center;width:100%;transition:color .15s}
+  .tier-more:hover{color:var(--accent)}
+  .starter .s-more{font-size:13px;font-weight:600;color:var(--muted);white-space:nowrap}
+  .starter .s-more:hover{color:var(--accent)}
   .guarantee{margin-top:30px;color:var(--muted);font-size:14px}
   .starter{display:flex;align-items:center;gap:22px;flex-wrap:wrap;justify-content:space-between;
     background:var(--surface2);border:1px dashed var(--accent);border-radius:18px;padding:22px 26px;margin-top:36px}
@@ -292,7 +297,10 @@
         <span class="s-cost">$29</span>
         <span class="s-desc"><strong>4-Week Hypertrophy Kickstart</strong> — a focused muscle-building block to get you training with intent. The low-commitment way to try my coaching before the full program.</span>
       </div>
-      <a class="btn btn-primary" href="https://buy.stripe.com/4gMaER7HBbS39cTgRK4F204" data-checkout="kickstart">Get the Kickstart</a>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:8px">
+        <a class="btn btn-primary" href="https://buy.stripe.com/4gMaER7HBbS39cTgRK4F204" data-checkout="kickstart">Get the Kickstart</a>
+        <a class="s-more" href="program-kickstart.html">Why this program →</a>
+      </div>
     </div>
 
     <div class="tiers">
@@ -309,6 +317,7 @@
           <li>"Why it works" primer so you can adapt it</li>
         </ul>
         <a class="btn btn-ghost" href="https://buy.stripe.com/14AbIVbXR1dp1KrfNG4F200" data-checkout="blueprint">Get The Blueprint</a>
+        <a class="tier-more" href="program-blueprint.html">Why this program →</a>
       </div>
 
       <div class="tier featured reveal">
@@ -324,6 +333,7 @@
           <li>Nutrition framework you learn to run yourself</li>
         </ul>
         <a class="btn btn-primary" href="https://buy.stripe.com/6oUfZb5ztbS360H1WQ4F201" data-checkout="transformation">Start the Transformation</a>
+        <a class="tier-more" href="program-transformation.html">Why this program →</a>
       </div>
 
       <div class="tier reveal">
@@ -338,6 +348,7 @@
           <li>Habit &amp; behavior-change coaching built to last</li>
         </ul>
         <a class="btn btn-ghost" href="https://buy.stripe.com/8x26oBbXR3lx2Ov30U4F203" data-checkout="coaching">Apply for Coaching</a>
+        <a class="tier-more" href="program-coaching.html">Why this program →</a>
       </div>
 
     </div>
@@ -450,44 +461,58 @@
   // ===== Warm questionnaire between program choice and checkout =====
   (function(){
     const OFFERS={kickstart:'4-Week Kickstart',blueprint:'The Blueprint',transformation:'12-Week Transformation',coaching:'1:1 Coaching'};
-    const GOALS=['Build muscle','Lose fat','Get stronger','Feel better & consistent'];
+    const GOALS=['Build muscle','Lose fat / lean out','Get stronger','Feel better &amp; consistent'];
     const EXP=['Just starting out','Some training experience','Experienced lifter'];
-    const STEPS=4;
+    const LOC=['A commercial gym','At home','A bit of both'];
+    const DAYS=['2–3 days a week','3–4 days a week','5+ days a week'];
+    const OBST=['Staying consistent','Not knowing what to do','Nutrition / eating','Losing motivation','Coming back from a layoff / injury'];
+    // step ids in order; last is the handoff screen
+    const FLOW=['name','goal','exp','loc','days','obst','email','go'];
     const ov=document.getElementById('qOv'),qbody=document.getElementById('qBody'),prog=document.getElementById('qProg');
     let ctx=null,step=0;
-    function setProg(){prog.innerHTML='';for(let i=0;i<STEPS;i++){const s=document.createElement('span');if(i<=Math.min(step,STEPS-1))s.className='on';prog.appendChild(s);}}
+    const INPUTS=FLOW.length-1; // progress segments = everything except handoff
+    function setProg(){prog.innerHTML='';for(let i=0;i<INPUTS;i++){const s=document.createElement('span');if(i<=Math.min(step,INPUTS-1))s.className='on';prog.appendChild(s);}}
     function esc(s){return (s||'').replace(/[^a-zA-Z0-9]+/g,'-').replace(/^-+|-+$/g,'').toLowerCase();}
-    function openQ(a){ctx={base:a.href,label:a.dataset.checkout,offer:OFFERS[a.dataset.checkout]||'your program',name:'',goal:'',exp:'',email:''};step=0;render();ov.classList.add('open');}
-    function closeQ(){ov.classList.remove('open');}
+    function openQ(a){ctx={base:a.href,label:a.dataset.checkout,offer:OFFERS[a.dataset.checkout]||'your program',name:'',goal:'',exp:'',loc:'',days:'',obst:'',email:''};step=0;render();ov.classList.add('open');document.body.style.overflow='hidden';}
+    function closeQ(){ov.classList.remove('open');document.body.style.overflow='';}
     function go(){
       let url=ctx.base;const sep=url.indexOf('?')>=0?'&':'?';
-      const ref=(esc(ctx.goal)+'_'+esc(ctx.exp)+'_'+esc(ctx.name)).slice(0,190);
+      const ref=[esc(ctx.goal),esc(ctx.exp),esc(ctx.loc),esc(ctx.days),esc(ctx.obst)].join('_').slice(0,180);
       const params=[];
       if(ctx.email)params.push('prefilled_email='+encodeURIComponent(ctx.email));
       params.push('client_reference_id='+encodeURIComponent(ref));
       window.location.href=url+sep+params.join('&');
     }
+    // helper: an option-list step
+    function optStep(eyebrow,title,sub,opts,field,next){
+      qbody.innerHTML='<div class="q-eyebrow">'+eyebrow+'</div><h3>'+title+'</h3><p class="q-sub">'+sub+'</p><div class="q-opts">'+opts.map(g=>'<button class="q-opt" data-v="'+g.replace(/&amp;/g,'&').replace(/"/g,'&quot;')+'">'+g+'</button>').join('')+'</div><div class="q-actions"><button class="q-back" id="qBack">← Back</button></div>';
+      qbody.querySelectorAll('.q-opt').forEach(b=>b.onclick=()=>{ctx[field]=b.dataset.v;step=next;render();});
+      document.getElementById('qBack').onclick=()=>{step=next-2;render();};
+    }
     function render(){
       setProg();
-      if(step===0){
-        qbody.innerHTML='<div class="q-eyebrow">Before we start</div><h3>First — what should I call you?</h3><p class="q-sub">I like to know who I’m actually working with. 20 seconds, then you’re straight to secure checkout.</p><input class="q-in" id="qName" placeholder="Your first name" autocomplete="given-name"><div class="q-actions"><button class="btn btn-primary" id="qNext">Continue</button></div>';
+      const id=FLOW[step];
+      if(id==='name'){
+        qbody.innerHTML='<div class="q-eyebrow">Before we start</div><h3>First — what should I call you?</h3><p class="q-sub">I like to know who I’m actually working with. Quick questions so your program fits you — then straight to secure checkout.</p><input class="q-in" id="qName" placeholder="Your first name" autocomplete="given-name"><div class="q-actions"><button class="btn btn-primary" id="qNext">Continue</button></div>';
         const inp=document.getElementById('qName');inp.value=ctx.name;setTimeout(()=>inp.focus(),40);
         inp.addEventListener('keydown',e=>{if(e.key==='Enter')document.getElementById('qNext').click();});
         document.getElementById('qNext').onclick=()=>{ctx.name=inp.value.trim();step=1;render();};
-      }else if(step===1){
-        qbody.innerHTML='<div class="q-eyebrow">Step 2 of 4</div><h3>'+(ctx.name?('Good to meet you, '+ctx.name+'. '):'')+'What’s your main goal?</h3><p class="q-sub">So the first thing I send you speaks to what you actually want.</p><div class="q-opts">'+GOALS.map(g=>'<button class="q-opt" data-v="'+g+'">'+g+'</button>').join('')+'</div><div class="q-actions"><button class="q-back" id="qBack">← Back</button></div>';
-        qbody.querySelectorAll('.q-opt').forEach(b=>b.onclick=()=>{ctx.goal=b.dataset.v;step=2;render();});
-        document.getElementById('qBack').onclick=()=>{step=0;render();};
-      }else if(step===2){
-        qbody.innerHTML='<div class="q-eyebrow">Step 3 of 4</div><h3>Where are you right now?</h3><p class="q-sub">No wrong answer — it just helps me meet you where you are.</p><div class="q-opts">'+EXP.map(g=>'<button class="q-opt" data-v="'+g+'">'+g+'</button>').join('')+'</div><div class="q-actions"><button class="q-back" id="qBack">← Back</button></div>';
-        qbody.querySelectorAll('.q-opt').forEach(b=>b.onclick=()=>{ctx.exp=b.dataset.v;step=3;render();});
-        document.getElementById('qBack').onclick=()=>{step=1;render();};
-      }else if(step===3){
+      }else if(id==='goal'){
+        optStep('Your goal',(ctx.name?('Good to meet you, '+ctx.name+'. '):'')+'What’s your main goal?','So the first thing I send you speaks to what you actually want.',GOALS,'goal',2);
+      }else if(id==='exp'){
+        optStep('Your experience','Where are you right now?','No wrong answer — it just helps me meet you where you are.',EXP,'exp',3);
+      }else if(id==='loc'){
+        optStep('Your setup','Where will you be training?','Every program has a full gym <em>and</em> home track — I’ll point you to the right one.',LOC,'loc',4);
+      }else if(id==='days'){
+        optStep('Your schedule','How many days a week can you realistically train?','Honesty beats ambition here — we build around your real life.',DAYS,'days',5);
+      }else if(id==='obst'){
+        optStep('Real talk','What’s tripped you up before?','This is the thing I’ll help you actually fix — not just train around.',OBST,'obst',6);
+      }else if(id==='email'){
         qbody.innerHTML='<div class="q-eyebrow">Last step</div><h3>Where should I send your program?</h3><p class="q-sub">Your files are delivered here automatically the moment you check out.</p><input class="q-in" id="qEmail" type="email" placeholder="you@email.com" autocomplete="email"><div class="q-actions"><button class="q-back" id="qBack">← Back</button><button class="btn btn-primary" id="qNext">Continue to checkout</button></div><p class="q-note">🔒 Secure checkout via Stripe · Your info is only used to deliver your program.</p>';
         const inp=document.getElementById('qEmail');inp.value=ctx.email;setTimeout(()=>inp.focus(),40);
         inp.addEventListener('keydown',e=>{if(e.key==='Enter')document.getElementById('qNext').click();});
-        document.getElementById('qBack').onclick=()=>{step=2;render();};
-        document.getElementById('qNext').onclick=()=>{const v=inp.value.trim();if(!/.+@.+\..+/.test(v)){inp.style.borderColor='#e0662f';inp.focus();return;}ctx.email=v;step=4;render();};
+        document.getElementById('qBack').onclick=()=>{step=5;render();};
+        document.getElementById('qNext').onclick=()=>{const v=inp.value.trim();if(!/.+@.+\..+/.test(v)){inp.style.borderColor='#e0662f';inp.focus();return;}ctx.email=v;step=7;render();};
       }else{
         qbody.innerHTML='<div class="q-eyebrow">You’re all set'+(ctx.name?(', '+ctx.name):'')+'</div><h3>Taking you to secure checkout…</h3><p class="q-sub">Your '+ctx.offer+' lands in your inbox the second you’re done. Redirecting now — tap below if it doesn’t move.</p><div class="q-actions"><button class="btn btn-primary" id="qGo">Continue to secure checkout →</button></div>';
         document.getElementById('qGo').onclick=go;setTimeout(go,900);
