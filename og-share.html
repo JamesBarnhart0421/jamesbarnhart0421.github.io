@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{width:1200px;height:630px;overflow:hidden}
+  body{background:#0c0d0f;color:#f2f0ec;font-family:'Inter',sans-serif;position:relative}
+  .glow{position:absolute;inset:0;background:radial-gradient(60% 70% at 82% 10%,rgba(201,167,92,.20),transparent 60%),radial-gradient(50% 60% at 5% 95%,rgba(138,106,58,.14),transparent 60%)}
+  .photo{position:absolute;top:0;right:0;bottom:0;width:52%;background:url('hero.jpg') top center/cover;
+    -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 62%);mask-image:linear-gradient(90deg,transparent 0,#000 62%);opacity:.62}
+  .photo::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(12,13,15,.35),transparent 30%,rgba(12,13,15,.55))}
+  .content{position:absolute;left:72px;top:0;bottom:0;width:640px;display:flex;flex-direction:column;justify-content:center}
+  .eyebrow{color:#c9a75c;font-weight:700;font-size:18px;letter-spacing:4px;text-transform:uppercase;margin-bottom:22px}
+  h1{font-family:'Archivo Black',sans-serif;font-size:96px;line-height:.98;letter-spacing:-1px;margin-bottom:20px}
+  h1 .dot{color:#c9a75c}
+  .tag{font-size:30px;color:#cfd2d0;font-weight:600;line-height:1.3;max-width:16ch}
+  .tag b{color:#c9a75c}
+  .foot{position:absolute;left:72px;bottom:52px;display:flex;align-items:center;gap:16px}
+  .foot .url{font-family:'Archivo Black',sans-serif;font-size:22px;color:#f2f0ec}
+  .foot .line{width:46px;height:3px;background:#c9a75c;border-radius:3px}
+</style>
+</head>
+<body>
+  <div class="glow"></div>
+  <div class="photo"></div>
+  <div class="content">
+    <div class="eyebrow">Coaching for lasting change</div>
+    <h1>COACH JAY<span class="dot">.</span></h1>
+    <div class="tag">Take control of your <b>own health.</b></div>
+  </div>
+  <div class="foot"><span class="line"></span><span class="url">coachjaytraining.com</span></div>
+</body>
+</html>
