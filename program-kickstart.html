@@ -4,10 +4,10 @@
 <meta charset="UTF-8">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%277%27 fill=%27%230c0d0f%27/%3E%3Ctext x=%2716%27 y=%2722%27 font-family=%27Arial%27 font-size=%2715%27 font-weight=%27bold%27 fill=%27%23c9a75c%27 text-anchor=%27middle%27%3ECJ%3C/text%3E%3C/svg%3E">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>4-Week Hypertrophy Kickstart - Coach Jay</title>
-<meta name="description" content="Four focused weeks to start building real muscle - the low-commitment way to feel exactly how I coach before you go all in.">
-<meta property="og:title" content="4-Week Hypertrophy Kickstart - Coach Jay">
-<meta property="og:description" content="Four focused weeks to start building real muscle - the low-commitment way to feel exactly how I coach before you go all in.">
+<title>4-Week Hypertrophy Kickstart, Coach Jay</title>
+<meta name="description" content="Four focused weeks to start building real muscle, the low-commitment way to feel exactly how I coach before you go all in.">
+<meta property="og:title" content="4-Week Hypertrophy Kickstart, Coach Jay">
+<meta property="og:description" content="Four focused weeks to start building real muscle, the low-commitment way to feel exactly how I coach before you go all in.">
 <meta property="og:type" content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -84,16 +84,16 @@
   <div class="eyebrow">The program</div>
   <h1>4-Week Hypertrophy Kickstart</h1>
   <div class="pp-price">$29<small></small></div>
-  <p class="pp-tag">Four focused weeks to start building real muscle - the low-commitment way to feel exactly how I coach before you go all in.</p>
+  <p class="pp-tag">Four focused weeks to start building real muscle, the low-commitment way to feel exactly how I coach before you go all in.</p>
   <a class="btn btn-primary" href="https://buy.stripe.com/4gMaER7HBbS39cTgRK4F204" data-checkout="kickstart">Get 4-Week Hypertrophy Kickstart &rarr;</a>
 </div></section>
 
-<!-- DRAFT copy in Coach Jay voice - edit freely to match exactly how you would say it -->
+<!-- DRAFT copy in Coach Jay voice, edit freely to match exactly how you would say it -->
 <section class="why"><div class="wrap">
   <h2>Why I believe in this program</h2>
-  <p>I built the Kickstart for one reason: the hardest part is starting. Most people don't need a 12-week overhaul on day one - they need four honest weeks that prove to them they can do this.</p>
+  <p>I built the Kickstart for one reason: the hardest part is starting. Most people don't need a 12-week overhaul on day one, they need four honest weeks that prove to them they can do this.</p>
   <p>This is the exact structure I put beginners on: train with intent, progress every week, eat enough protein. No fluff, no 47-page PDF you'll never open. Just a clean block that gets you moving and shows you what real training feels like.</p>
-  <p>At $29 it's priced to be a no-brainer. If it lights the fire - and it usually does - The Blueprint is right there to take you the rest of the way.</p>
+  <p>At $29 it's priced to be a no-brainer. If it lights the fire, and it usually does, The Blueprint is right there to take you the rest of the way.</p>
   <p class="sig">- Coach Jay</p>
 </div></section>
 
@@ -104,7 +104,7 @@
 
 <section class="pp-cta"><div class="wrap">
   <h2>Ready to start?</h2>
-  <p>A few quick questions so it fits you - then straight to secure checkout. Your program is emailed instantly.</p>
+  <p>A few quick questions so it fits you, then straight to secure checkout. Your program is emailed instantly.</p>
   <a class="btn btn-primary" href="https://buy.stripe.com/4gMaER7HBbS39cTgRK4F204" data-checkout="kickstart">Get 4-Week Hypertrophy Kickstart &rarr;</a>
   <p class="guarantee">&#128274; Secure checkout via Stripe &middot; Instant delivery to your email</p>
 </div></section>
@@ -155,20 +155,20 @@
       setProg();
       const id=FLOW[step];
       if(id==='name'){
-        qbody.innerHTML='<div class="q-eyebrow">Before we start</div><h3>First — what should I call you?</h3><p class="q-sub">I like to know who I’m actually working with. Quick questions so your program fits you — then straight to secure checkout.</p><input class="q-in" id="qName" placeholder="Your first name" autocomplete="given-name"><div class="q-actions"><button class="btn btn-primary" id="qNext">Continue</button></div>';
+        qbody.innerHTML='<div class="q-eyebrow">Before we start</div><h3>First, what should I call you?</h3><p class="q-sub">I like to know who I’m actually working with. Quick questions so your program fits you, then straight to secure checkout.</p><input class="q-in" id="qName" placeholder="Your first name" autocomplete="given-name"><div class="q-actions"><button class="btn btn-primary" id="qNext">Continue</button></div>';
         const inp=document.getElementById('qName');inp.value=ctx.name;setTimeout(()=>inp.focus(),40);
         inp.addEventListener('keydown',e=>{if(e.key==='Enter')document.getElementById('qNext').click();});
         document.getElementById('qNext').onclick=()=>{ctx.name=inp.value.trim();step=1;render();};
       }else if(id==='goal'){
         optStep('Your goal',(ctx.name?('Good to meet you, '+ctx.name+'. '):'')+'What’s your main goal?','So the first thing I send you speaks to what you actually want.',GOALS,'goal',2);
       }else if(id==='exp'){
-        optStep('Your experience','Where are you right now?','No wrong answer — it just helps me meet you where you are.',EXP,'exp',3);
+        optStep('Your experience','Where are you right now?','No wrong answer, it just helps me meet you where you are.',EXP,'exp',3);
       }else if(id==='loc'){
-        optStep('Your setup','Where will you be training?','Every program has a full gym <em>and</em> home track — I’ll point you to the right one.',LOC,'loc',4);
+        optStep('Your setup','Where will you be training?','Every program has a full gym <em>and</em> home track, and I’ll point you to the right one.',LOC,'loc',4);
       }else if(id==='days'){
-        optStep('Your schedule','How many days a week can you realistically train?','Honesty beats ambition here — we build around your real life.',DAYS,'days',5);
+        optStep('Your schedule','How many days a week can you realistically train?','Honesty beats ambition here. We build around your real life.',DAYS,'days',5);
       }else if(id==='obst'){
-        optStep('Real talk','What’s tripped you up before?','This is the thing I’ll help you actually fix — not just train around.',OBST,'obst',6);
+        optStep('Real talk','What’s tripped you up before?','This is the thing I’ll help you actually fix, not just train around.',OBST,'obst',6);
       }else if(id==='email'){
         qbody.innerHTML='<div class="q-eyebrow">Last step</div><h3>Where should I send your program?</h3><p class="q-sub">Your files are delivered here automatically the moment you check out.</p><input class="q-in" id="qEmail" type="email" placeholder="you@email.com" autocomplete="email"><div class="q-actions"><button class="q-back" id="qBack">← Back</button><button class="btn btn-primary" id="qNext">Continue to checkout</button></div><p class="q-note">🔒 Secure checkout via Stripe · Your info is only used to deliver your program.</p>';
         const inp=document.getElementById('qEmail');inp.value=ctx.email;setTimeout(()=>inp.focus(),40);
@@ -176,7 +176,7 @@
         document.getElementById('qBack').onclick=()=>{step=5;render();};
         document.getElementById('qNext').onclick=()=>{const v=inp.value.trim();if(!/.+@.+\..+/.test(v)){inp.style.borderColor='#e0662f';inp.focus();return;}ctx.email=v;step=7;render();};
       }else{
-        qbody.innerHTML='<div class="q-eyebrow">You’re all set'+(ctx.name?(', '+ctx.name):'')+'</div><h3>Taking you to secure checkout…</h3><p class="q-sub">Your '+ctx.offer+' lands in your inbox the second you’re done. Redirecting now — tap below if it doesn’t move.</p><div class="q-actions"><button class="btn btn-primary" id="qGo">Continue to secure checkout →</button></div>';
+        qbody.innerHTML='<div class="q-eyebrow">You’re all set'+(ctx.name?(', '+ctx.name):'')+'</div><h3>Taking you to secure checkout…</h3><p class="q-sub">Your '+ctx.offer+' lands in your inbox the second you’re done. Redirecting now. Tap below if it doesn’t move.</p><div class="q-actions"><button class="btn btn-primary" id="qGo">Continue to secure checkout →</button></div>';
         document.getElementById('qGo').onclick=go;setTimeout(go,900);
       }
     }
@@ -201,7 +201,7 @@
     msg.style.color='var(--muted)';msg.textContent='Sending…';
     try{
       const r=await fetch('/api/lead',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,source:'website'})});
-      if(r.ok){msg.style.color='var(--accent)';msg.textContent='You’re in — check your inbox soon. 💪';form.reset();return;}
+      if(r.ok){msg.style.color='var(--accent)';msg.textContent='You’re in! Check your inbox soon. 💪';form.reset();return;}
       throw new Error('bad');
     }catch(_){
       // static-hosting fallback: open an email to James with the address
