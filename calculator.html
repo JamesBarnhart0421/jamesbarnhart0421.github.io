@@ -176,6 +176,13 @@
     <div class="teach" id="teach"></div>
     <div class="note hidden" id="note"></div>
   </div>
+  <div id="lockCard" class="card" style="display:none;text-align:center;padding:44px 28px">
+    <div style="font-size:38px">🔒</div>
+    <h3 id="lockTitle" style="margin:10px 0 10px"></h3>
+    <p id="lockDesc" style="color:#9a9793;max-width:48ch;margin:0 auto 22px;line-height:1.65"></p>
+    <a id="lockCta" class="btn-primary" href="#" style="display:inline-block;text-decoration:none"></a>
+    <div style="margin-top:14px;font-size:12.5px;color:#7c7a76">Already purchased this tier? This level is unlocked inside your program materials.</div>
+  </div>
   <div class="cta-strip"><a href="/#programs">Ready for the full plan? See the programs →</a></div>
   <div class="foot">Mifflin-St Jeor BMR · this is education, not medical advice. Recalculate as your weight and training change.</div>
 </div>
@@ -206,9 +213,23 @@ function seg(id,cb){document.querySelectorAll('#'+id+' button').forEach(b=>b.onc
 seg('act',v=>activity=+v); seg('goal',v=>goal=v); seg('intensity',v=>intensity=+v);
 ['w','h','age','sex','trend','perf'].forEach(id=>document.getElementById(id).oninput=calc);
 
+// ---- soft tier-lock: Level 1 is open to everyone; 2 & 3 show an upsell unless owned ----
+const LOCK={
+  2:{title:'Level 2 · Adaptive controls',desc:'Level 2 adds goal-intensity targeting (aggressive cut, recomp, lean bulk) and teaches you exactly when to recalculate. It comes with the 12-Week Transformation.',cta:'Unlock with the 12-Week Transformation →',href:'program-transformation.html'},
+  3:{title:'Level 3 · Weekly self-adjust',desc:'Level 3 re-tunes your macros every week from your real weight trend and how your training feels. It comes with 1:1 Coaching.',cta:'Unlock with 1:1 Coaching →',href:'program-coaching.html'}
+};
+// A buyer's tier can be set via ?tier=N (from their delivery email); it sticks in the browser after.
+try{var _tp=new URLSearchParams(location.search).get('tier');if(_tp!==null){var _tn=+_tp;if(_tn>=1&&_tn<=3)localStorage.setItem('cj_tier',_tn);}}catch(e){}
+let USER_LEVEL=1; try{const t=+JSON.parse(localStorage.getItem('cj_tier')||'null'); if(t>=1&&t<=3)USER_LEVEL=t;}catch(e){}
+const lockCard=document.getElementById('lockCard');
+const bodyCards=[...document.querySelectorAll('.card')].filter(c=>c!==lockCard);
+function showLock(lvl){const d=LOCK[lvl];document.getElementById('lockTitle').textContent=d.title;document.getElementById('lockDesc').textContent=d.desc;const c=document.getElementById('lockCta');c.textContent=d.cta;c.href=d.href;bodyCards.forEach(x=>x.style.display='none');lockCard.style.display='';}
+function hideLock(){lockCard.style.display='none';bodyCards.forEach(x=>x.style.display='');}
 document.querySelectorAll('.tier').forEach(t=>t.onclick=()=>{
-  document.querySelectorAll('.tier').forEach(x=>x.classList.remove('on'));
-  t.classList.add('on'); LVL=+t.dataset.lvl;
+  const lvl=+t.dataset.lvl;
+  document.querySelectorAll('.tier').forEach(x=>x.classList.remove('on'));t.classList.add('on');
+  if(lvl>USER_LEVEL){showLock(lvl);return;}
+  hideLock(); LVL=lvl;
   document.getElementById('advL2').classList.toggle('hidden',LVL<2);
   document.getElementById('advL3').classList.toggle('hidden',LVL<3);
   calc();
